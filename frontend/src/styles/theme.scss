@@ -1,0 +1,480 @@
+/* ============================================================
+   智愈医典·医疗知识信息问答系统 —— 全局设计令牌与通用样式
+   （浅蓝紫医疗风：主色 #2b8fe8 / 侧栏紫蓝渐变）
+   ============================================================ */
+
+:root {
+  /* 主色 */
+  --mkw-primary: #2b8fe8;
+  --mkw-primary-light: #38bdf8;
+  --mkw-primary-deep: #1f7ad0;
+  --mkw-gradient-primary: linear-gradient(90deg, #38bdf8, #2b8fe8);
+  --mkw-gradient-sidebar: linear-gradient(180deg, #8f9ff0 0%, #9b8ce8 55%, #a68ae0 100%);
+  --mkw-gradient-circle: linear-gradient(135deg, #5ec6f8 0%, #2b8fe8 100%);
+
+  /* 背景 */
+  --mkw-bg: #eef2fb;
+  --mkw-bg-alt: #f0f4fc;
+  --mkw-card-bg: #ffffff;
+
+  /* 文本 */
+  --mkw-text: #303133;
+  --mkw-text-regular: #606266;
+  --mkw-text-secondary: #909399;
+  --mkw-text-placeholder: #a8abb2;
+
+  /* 语义色 */
+  --mkw-success: #31a05f;
+  --mkw-warning: #e6a23c;
+  --mkw-danger: #f56c6c;
+  --mkw-info: #909399;
+  --mkw-risk-extreme: #8b1a1a;
+
+  /* 标签 */
+  --mkw-pill-blue-bg: #e8f3ff;
+  --mkw-pill-blue-text: #2b8fe8;
+  --mkw-pill-green-bg: #e9f9ef;
+  --mkw-pill-green-text: #31a05f;
+  --mkw-pill-amber-bg: #fdf5e6;
+  --mkw-pill-amber-text: #c98b1e;
+
+  /* 结构 */
+  --mkw-sidebar-width: 200px;
+  --mkw-header-height: 60px;
+  --mkw-radius-card: 14px;
+  --mkw-radius-btn: 10px;
+  --mkw-shadow-card: 0 2px 12px rgba(80, 120, 220, 0.08);
+  --mkw-shadow-card-hover: 0 8px 24px rgba(80, 120, 220, 0.16);
+  --mkw-border: 1px solid #e6ecf8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--mkw-bg);
+  color: var(--mkw-text);
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica,
+    Arial, 'Noto Sans CJK SC', sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------------- 滚动条 ---------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c9d6ef;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a9bde0;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------------- 布局 ---------------- */
+.mkw-page {
+  padding: 20px 24px 8px;
+}
+
+.mkw-hero {
+  text-align: center;
+  margin: 4px 0 22px;
+}
+
+.mkw-hero__title {
+  margin: 0 0 10px;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--mkw-primary);
+  line-height: 1.25;
+}
+
+.mkw-hero__subtitle {
+  margin: 0;
+  font-size: 15px;
+  color: var(--mkw-text-regular);
+  line-height: 1.6;
+}
+
+.mkw-hero__hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--mkw-text-secondary);
+}
+
+/* ---------------- 卡片 ---------------- */
+.mkw-card {
+  background: var(--mkw-card-bg);
+  border-radius: var(--mkw-radius-card);
+  box-shadow: var(--mkw-shadow-card);
+  padding: 20px 24px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.mkw-card--hover:hover {
+  box-shadow: var(--mkw-shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.mkw-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.mkw-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--mkw-text);
+}
+
+.mkw-card__title-icon {
+  color: var(--mkw-primary);
+  font-size: 18px;
+}
+
+.mkw-card__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mkw-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--mkw-text);
+  text-align: center;
+  margin: 6px 0 18px;
+}
+
+/* ---------------- 按钮 ---------------- */
+.mkw-btn-primary,
+.el-button.mkw-btn-primary {
+  background: var(--mkw-gradient-primary);
+  border: none;
+  color: #fff;
+  border-radius: var(--mkw-radius-btn);
+  font-weight: 600;
+  padding: 10px 22px;
+  box-shadow: 0 4px 12px rgba(43, 143, 232, 0.28);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mkw-btn-primary:hover,
+.mkw-btn-primary:focus,
+.el-button.mkw-btn-primary:hover,
+.el-button.mkw-btn-primary:focus {
+  background: var(--mkw-gradient-primary);
+  color: #fff;
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.mkw-btn-primary.is-disabled,
+.mkw-btn-primary.is-disabled:hover {
+  opacity: 0.6;
+  transform: none;
+  color: #fff;
+  background: var(--mkw-gradient-primary);
+}
+
+.mkw-btn-ghost,
+.el-button.mkw-btn-ghost {
+  border-radius: var(--mkw-radius-btn);
+  border: 1px solid #d7e3f7;
+  background: #f7faff;
+  color: var(--mkw-primary);
+  font-weight: 500;
+}
+
+.mkw-btn-ghost:hover,
+.el-button.mkw-btn-ghost:hover {
+  background: #eaf3ff;
+  border-color: #b9d5f7;
+  color: var(--mkw-primary);
+}
+
+/* ---------------- 药丸标签 ---------------- */
+.mkw-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.mkw-pill--blue {
+  background: var(--mkw-pill-blue-bg);
+  color: var(--mkw-pill-blue-text);
+}
+
+.mkw-pill--green {
+  background: var(--mkw-pill-green-bg);
+  color: var(--mkw-pill-green-text);
+}
+
+.mkw-pill--amber {
+  background: var(--mkw-pill-amber-bg);
+  color: var(--mkw-pill-amber-text);
+}
+
+.mkw-pill--gray {
+  background: #f2f4f8;
+  color: #7a8599;
+}
+
+.mkw-pill--red {
+  background: #fdeeee;
+  color: #e05a5a;
+}
+
+/* ---------------- 圆形渐变图标 ---------------- */
+.mkw-circle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--mkw-gradient-circle);
+  color: #fff;
+  font-size: 34px;
+  box-shadow: 0 8px 20px rgba(43, 143, 232, 0.28);
+  flex: 0 0 auto;
+}
+
+.mkw-circle-icon--sm {
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(43, 143, 232, 0.24);
+}
+
+/* ---------------- 统计小卡 ---------------- */
+.mkw-stat {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border-radius: var(--mkw-radius-card);
+  box-shadow: var(--mkw-shadow-card);
+  padding: 16px 20px;
+}
+
+.mkw-stat__icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mkw-gradient-circle);
+  color: #fff;
+  font-size: 20px;
+  flex: 0 0 auto;
+}
+
+.mkw-stat__value {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--mkw-primary);
+  line-height: 1.1;
+}
+
+.mkw-stat__label {
+  font-size: 13px;
+  color: var(--mkw-text-secondary);
+  margin-top: 2px;
+}
+
+/* ---------------- 文本工具类 ---------------- */
+.mkw-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mkw-text-primary {
+  color: var(--mkw-primary);
+}
+
+.mkw-text-muted {
+  color: var(--mkw-text-secondary);
+}
+
+.mkw-link {
+  color: var(--mkw-primary);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.mkw-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------------- 免责声明条 ---------------- */
+.mkw-disclaimer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 14px 0 4px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: #fffaf0;
+  border: 1px dashed #f0d9a8;
+  color: #b8860b;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.mkw-disclaimer--inline {
+  margin: 10px 0 0;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: 12px;
+  background: #fffaf0;
+}
+
+/* ---------------- 空状态 ---------------- */
+.mkw-empty {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--mkw-text-secondary);
+  font-size: 13px;
+}
+
+/* ---------------- Element Plus 局部覆盖 ---------------- */
+.el-card {
+  border: none;
+  border-radius: var(--mkw-radius-card);
+  box-shadow: var(--mkw-shadow-card) !important;
+}
+
+.el-input__wrapper,
+.el-select__wrapper,
+.el-textarea__inner {
+  border-radius: 10px !important;
+}
+
+.el-button {
+  border-radius: var(--mkw-radius-btn);
+}
+
+.el-drawer__header {
+  margin-bottom: 12px;
+  padding: 18px 24px;
+  border-bottom: 1px solid #eef2fb;
+  color: var(--mkw-text);
+  font-weight: 700;
+}
+
+.el-drawer__body {
+  padding: 12px 24px 24px;
+}
+
+.el-tag {
+  border-radius: 20px;
+}
+
+.el-collapse,
+.el-collapse-item__header,
+.el-collapse-item__wrap {
+  border: none;
+}
+
+.el-collapse-item__header {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--mkw-text);
+  background: #f7faff;
+  border-radius: 10px;
+  padding: 0 14px;
+  margin-bottom: 8px;
+  height: 44px;
+  line-height: 44px;
+}
+
+.el-collapse-item__wrap {
+  background: transparent;
+}
+
+.el-collapse-item__content {
+  padding: 6px 4px 14px;
+  font-size: 13px;
+  color: var(--mkw-text-regular);
+}
+
+.el-progress-bar__outer {
+  border-radius: 8px !important;
+  background-color: #eef2fb !important;
+}
+
+.el-pagination {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.el-form-item__label {
+  color: var(--mkw-text-regular);
+  font-weight: 500;
+}
+
+.el-alert {
+  border-radius: 10px;
+}
+
+/* ---------------- 过渡动画 ---------------- */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+/* ---------------- 响应式 ---------------- */
+@media (max-width: 1280px) {
+  .mkw-hero__title {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 900px) {
+  .mkw-page {
+    padding: 16px 14px 8px;
+  }
+
+  .mkw-hero__title {
+    font-size: 26px;
+  }
+}

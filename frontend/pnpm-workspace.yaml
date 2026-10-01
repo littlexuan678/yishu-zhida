@@ -1,0 +1,6 @@
+# pnpm 11 需要显式批准依赖的构建脚本（postinstall）。
+# esbuild 需要写入平台二进制，@parcel/watcher 用于文件监听，vue-demi 用于 Vue 版本适配。
+allowBuilds:
+  esbuild: true
+  '@parcel/watcher': true
+  vue-demi: true

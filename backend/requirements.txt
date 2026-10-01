@@ -1,0 +1,68 @@
+# =============================================================================
+#  医数智答 · 智愈医典  —— 后端 Python 依赖（Python 3.9）
+#  安装：pip install -r requirements.txt
+# =============================================================================
+
+# ------------------------- Web 框架 -------------------------
+fastapi==0.110.0
+uvicorn[standard]==0.27.1
+pydantic==2.6.4
+pydantic-settings==2.2.1
+python-multipart==0.0.9
+sse-starlette==2.0.0
+slowapi==0.1.9
+
+# ------------------------- 图数据库 Neo4j 5.8 -------------------------
+neo4j==5.19.0
+
+# ------------------------- 数据处理 -------------------------
+pandas==2.2.1
+numpy==1.26.4
+scikit-learn==1.4.1.post1
+xgboost==2.0.3
+joblib==1.3.2
+PyYAML==6.0.1
+python-dotenv==1.0.1
+orjson==3.9.15
+
+# ------------------------- 爬虫 Scrapy + PubMed API -------------------------
+Scrapy==2.11.1
+requests==2.31.0
+httpx==0.27.0
+lxml==5.1.0
+beautifulsoup4==4.12.3
+fake-useragent==1.5.1
+
+# ------------------------- 深度学习 / NLP -------------------------
+# 说明：以下为可选重型依赖。若仅做演示（走规则降级），可注释掉以极速安装。
+# 训练/推理 NER(BERT-BiLSTM-CRF)、关系抽取(改进 PCNN)、意图分类(TextCNN) 时必须安装。
+torch==2.2.1
+transformers==4.39.1
+tokenizers==0.15.2
+sentencepiece==0.2.0
+jieba==0.42.1
+datasets==2.18.0
+accelerate==0.29.1
+peft==0.9.0                # Llama 3 LoRA 指令微调
+sentence-transformers==2.6.1   # 向量检索（混合 RAG）
+
+# ------------------------- LangChain 编排（RAG 框架）-------------------------
+langchain==0.1.13
+langchain-community==0.0.29
+langchain-core==0.1.33
+openai==1.14.3
+
+# ------------------------- 可选：图神经网络图谱补全 -------------------------
+# 需与 torch 版本匹配，建议按 https://pytorch-geometric.readthedocs.io 官方指引安装
+# torch-geometric==2.5.2
+
+# ------------------------- 加密与合规 -------------------------
+cryptography==42.0.5
+
+# ------------------------- 图表（PyEcharts 服务端渲染）-------------------------
+pyecharts==2.0.5
+Jinja2==3.1.3
+
+# ------------------------- 测试 -------------------------
+pytest==8.1.1
+pytest-asyncio==0.23.5

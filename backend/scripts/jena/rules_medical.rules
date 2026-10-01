@@ -1,0 +1,253 @@
+# =============================================================================
+#  智愈医典 · 医疗规则推理规则集（Apache Jena Rules）
+#  ---------------------------------------------------------------------------
+#  语法：Jena Rule Language（前向链推理）
+#    [ruleName: (premise...) -> (conclusion...) ]
+#    ?x / ?y / ?s  为变量；med: 为本体命名空间前缀
+#
+#  与 Python 侧实现的对应关系：
+#    `app/kg_layer/graph_reasoner.py::PythonRuleEngine.DEFAULT_RULES`
+#    规则 ID 一一对应（R1~R6），无 JDK 环境时由 Python 实现给出等价结论。
+#
+#  执行方式：
+#    java -cp "jena/lib/*" riot --rules=rules_medical.rules \
+#         --output=N-TRIPLES ontology_medical.ttl
+#  或通过 Fuseki SPARQL 端点配合推理引擎。
+# =============================================================================
+
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix med:  <http://zhiyu.example.org/medical#> .
+@prefix list: <http://jena.apache.org/ARQ/list#> .
+@prefix rdfList: <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+
+# -----------------------------------------------------------------------------
+#  R1：共同症状 → 疾病相关性（共病 / 鉴别诊断提示）
+#  若疾病 A 与 B 至少共享 2 个症状，则推断 A relatedTo B
+#  说明：Jena 规则语言无法直接表达"计数 ≥2"，故拆为两步：
+#        R1a 推出三元共享关系（最小可判定条件），R1b 用聚合规则过滤。
+#        这里的 R1a 使用"共享两个具体症状"的模式表达最小条件：
+# -----------------------------------------------------------------------------
+[R1a_shared_symptom_related:
+  (?a rdf:type med:Disease)
+  (?b rdf:type med:Disease)
+  (?a med:hasSymptom ?s1)
+  (?b med:hasSymptom ?s1)
+  (?a med:hasSymptom ?s2)
+  (?b med:hasSymptom ?s2)
+  notEqual(?s1, ?s2)
+  notEqual(?a, ?b)
+  ->
+  (?a med:relatedTo ?b)
+]
+
+# R1b：把推理出的 relatedTo 标注置信度与来源规则（便于审计）
+[R1b_tag_related_confidence:
+  (?a med:relatedTo ?b)
+  noValue(?a med:relatedToConfidence ?any)
+  ->
+  (?a med:relatedToConfidence 0.72)
+  (?a med:relatedToRule "R1_shared_symptom")
+]
+
+# -----------------------------------------------------------------------------
+#  R2：共同治疗方案 → 疾病相关性
+#  两种疾病采用同一治疗方案，提示存在病理机制或分级关联
+# -----------------------------------------------------------------------------
+[R2_shared_treatment_related:
+  (?a rdf:type med:Disease)
+  (?b rdf:type med:Disease)
+  (?a med:treatedBy ?t)
+  (?b med:treatedBy ?t)
+  notEqual(?a, ?b)
+  ->
+  (?a med:relatedTo ?b)
+]
+
+[R2b_tag:
+  (?a med:relatedTo ?b)
+  noValue(?a med:relatedToConfidence ?any)
+  ->
+  (?a med:relatedToConfidence 0.66)
+  (?a med:relatedToRule "R2_shared_treatment")
+]
+
+# -----------------------------------------------------------------------------
+#  R3：并发症症状传递
+#  A 的并发症 B 具有症状 S，且 A 本身未记录该症状 → A 可能间接引起 S
+# -----------------------------------------------------------------------------
+[R3_complication_transitive_symptom:
+  (?a rdf:type med:Disease)
+  (?a med:hasComplication ?b)
+  (?b med:hasSymptom ?s)
+  noValue(?a med:hasSymptom ?s)
+  notEqual(?a, ?b)
+  ->
+  (?a med:mayCauseSymptom ?s)
+]
+
+[R3b_tag:
+  (?a med:mayCauseSymptom ?s)
+  noValue(?a med:mayCauseSymptomConfidence ?any)
+  ->
+  (?a med:mayCauseSymptomConfidence 0.64)
+  (?a med:mayCauseSymptomRule "R3_complication_transitive")
+]
+
+# -----------------------------------------------------------------------------
+#  R4：同科室共病关联
+#  两种疾病归属同一二级科室 → 提示同科室常见共病
+# -----------------------------------------------------------------------------
+[R4_same_department_related:
+  (?a rdf:type med:Disease)
+  (?b rdf:type med:Disease)
+  (?a med:belongsToDepartment ?d)
+  (?b med:belongsToDepartment ?d)
+  (?d med:category1 "二级科室")
+  notEqual(?a, ?b)
+  ->
+  (?a med:relatedTo ?b)
+]
+
+[R4b_tag:
+  (?a med:relatedTo ?b)
+  noValue(?a med:relatedToConfidence ?any)
+  ->
+  (?a med:relatedToConfidence 0.55)
+  (?a med:relatedToRule "R4_same_department")
+]
+
+# -----------------------------------------------------------------------------
+#  R5：传染性疾病标记与隔离提示
+#  isInfectious = true → 归入 InfectiousDisease 类，并推断需隔离防护
+# -----------------------------------------------------------------------------
+[R5_infectious_class:
+  (?d rdf:type med:Disease)
+  (?d med:isInfectious true)
+  ->
+  (?d rdf:type med:InfectiousDisease)
+]
+
+[R5b_needs_isolation:
+  (?d rdf:type med:InfectiousDisease)
+  ->
+  (?d med:needsIsolation med:IsolationPrecaution)
+]
+
+[R5c_isolation_individual:
+  ->
+  (med:IsolationPrecaution rdf:type med:Treatment)
+  (med:IsolationPrecaution med:name "传染性防护与隔离措施")
+]
+
+# -----------------------------------------------------------------------------
+#  R6：用药-并发症风险提示
+#  疾病 A 使用药物 D 且具有并发症 C → 提示需监测 D 对 C 的潜在影响
+#  （注意：本规则仅用于提示复核，不构成任何用药建议）
+# -----------------------------------------------------------------------------
+[R6_drug_complication_alert:
+  (?a rdf:type med:Disease)
+  (?a med:usesDrug ?d)
+  (?a med:hasComplication ?c)
+  notEqual(?a, ?c)
+  ->
+  (?d med:drugRiskAlertFor ?c)
+]
+
+[R6b_tag:
+  (?d med:drugRiskAlertFor ?c)
+  noValue(?d med:drugRiskAlertConfidence ?any)
+  ->
+  (?d med:drugRiskAlertConfidence 0.50)
+  (?d med:drugRiskAlertRule "R6_drug_complication")
+]
+
+# -----------------------------------------------------------------------------
+#  R7：鉴别诊断对称性补全
+#  differentialWith 具有对称语义，若只标注了一侧则补全另一侧
+# -----------------------------------------------------------------------------
+[R7_symmetric_differential:
+  (?a med:differentialWith ?b)
+  noValue(?b med:differentialWith ?a)
+  notEqual(?a, ?b)
+  ->
+  (?b med:differentialWith ?a)
+]
+
+# -----------------------------------------------------------------------------
+#  R8：并发症传递闭包（一级）
+#  A 并发症 B，B 并发症 C → A 间接并发症 C（标记为间接，置信度衰减）
+# -----------------------------------------------------------------------------
+[R8_complication_transitive:
+  (?a med:hasComplication ?b)
+  (?b med:hasComplication ?c)
+  notEqual(?a, ?b)
+  notEqual(?b, ?c)
+  notEqual(?a, ?c)
+  noValue(?a med:hasComplication ?c)
+  ->
+  (?a med:indirectComplication ?c)
+]
+
+[R8b_tag:
+  (?a med:indirectComplication ?c)
+  noValue(?a med:indirectComplicationConfidence ?any)
+  ->
+  (?a med:indirectComplicationConfidence 0.45)
+  (?a med:indirectComplicationRule "R8_complication_transitive")
+]
+
+# -----------------------------------------------------------------------------
+#  R9：急症识别（用于问答系统的安全兜底）
+#  以下疾病或症状关联被标记为急危重症，问答时须优先引导立即就医
+# -----------------------------------------------------------------------------
+[R9_emergency_flag:
+  (?d rdf:type med:Disease)
+  (?d med:hasSymptom ?s)
+  (?s med:name "突发性呼吸困难")
+  ->
+  (?d rdf:type med:EmergencyCondition)
+]
+
+[R9b_emergency_flag_chest_pain:
+  (?d rdf:type med:Disease)
+  (?d med:hasSymptom ?s)
+  (?s med:name "胸痛")
+  (?d med:hasSymptom ?s2)
+  (?s2 med:name "咯血")
+  ->
+  (?d rdf:type med:EmergencyCondition)
+]
+
+# -----------------------------------------------------------------------------
+#  R10：知识来源权威性传递
+#  若某疾病被权威指南（authority = "A"）支持，标记为高可信知识
+#  （用于问答置信度加权与前端来源标签展示）
+# -----------------------------------------------------------------------------
+[R10_authoritative_knowledge:
+  (?src rdf:type med:Source)
+  (?src med:authority "A")
+  (?src med:proves ?e)
+  ->
+  (?e med:hasAuthoritativeSource ?src)
+]
+
+[R10b_tag:
+  (?e med:hasAuthoritativeSource ?src)
+  noValue(?e med:knowledgeConfidenceBoost ?any)
+  ->
+  (?e med:knowledgeConfidenceBoost 0.05)
+]
+
+# =============================================================================
+#  说明
+# -----------------------------------------------------------------------------
+#  1. 规则按 R1~R10 分组，与 PythonRuleEngine.DEFAULT_RULES 的 R1~R6 核心规则
+#     语义等价；R7~R10 为 Jena 侧增强规则（对称补全、传递闭包、急症识别、
+#     权威性传递），PythonRuleEngine 亦有对应实现或可扩展。
+#  2. 所有推理结论都带 `xxxRule` 与 `xxxConfidence` 标注，实现**推理可解释**：
+#     用户可追溯"这条新知识是哪条规则推出来的、置信度多少"。
+#  3. 推理结果仅供知识补全与提示，**不构成任何医疗建议**。
+# =============================================================================

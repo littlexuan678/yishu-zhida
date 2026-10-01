@@ -1,0 +1,1059 @@
+{
+  "meta": {
+    "labels": [
+      "disease_query",
+      "symptom_consult",
+      "treatment_query",
+      "department_query"
+    ],
+    "label_cn": {
+      "disease_query": "疾病查询",
+      "symptom_consult": "症状咨询",
+      "treatment_query": "治疗咨询",
+      "department_query": "科室导诊"
+    },
+    "count": 260
+  },
+  "samples": [
+    {
+      "text": "孩子发育慢看什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "胆囊结石要紧吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "老人突然嘴歪说不清话去哪看",
+      "label": "department_query"
+    },
+    {
+      "text": "最近总失眠，白天没精神",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "高血压严重吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "心力衰竭的治疗方案有哪些",
+      "label": "treatment_query"
+    },
+    {
+      "text": "牙疼去哪个科挂号",
+      "label": "department_query"
+    },
+    {
+      "text": "体检发现血糖高，人也没症状",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "腰疼连着一条腿发麻",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "夜里打呼噜还老憋气",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "冠心病是怎么形成的",
+      "label": "disease_query"
+    },
+    {
+      "text": "肺结核是怎么得的",
+      "label": "disease_query"
+    },
+    {
+      "text": "脖子肿了一块，摸着不疼",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "甲状腺功能亢进症严重吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "半夜胸口疼醒了，出了一身汗",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "睡眠呼吸暂停用呼吸机有用吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "胸口疼看哪个科室",
+      "label": "department_query"
+    },
+    {
+      "text": "我想了解一下帕金森病",
+      "label": "disease_query"
+    },
+    {
+      "text": "咳嗽两周了挂哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "心衰病人怎么控制饮水",
+      "label": "treatment_query"
+    },
+    {
+      "text": "甲状腺功能亢进症怎么治",
+      "label": "treatment_query"
+    },
+    {
+      "text": "乙肝能根治吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "慢性肾脏病怎么延缓进展",
+      "label": "treatment_query"
+    },
+    {
+      "text": "帕金森病能手术吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "血压高需要长期吃药吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "尿路感染反复发作怎么办",
+      "label": "treatment_query"
+    },
+    {
+      "text": "失眠可以用中药调理吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "关节肿痛挂风湿科还是骨科",
+      "label": "department_query"
+    },
+    {
+      "text": "冠心病如何治疗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "腹泻挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "脸上长了一片红疹子还发烫",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "痛风是什么原因引起的",
+      "label": "disease_query"
+    },
+    {
+      "text": "龋病是怎么形成的",
+      "label": "disease_query"
+    },
+    {
+      "text": "血压高还头晕，用不用去医院",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "甲状腺功能异常挂哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "肺癌查出来就是晚期吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "打鼾找哪个科室",
+      "label": "department_query"
+    },
+    {
+      "text": "儿童反复发烧挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "月经不规律该挂哪一科",
+      "label": "department_query"
+    },
+    {
+      "text": "骨质疏松是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "老慢支去哪家医院看",
+      "label": "department_query"
+    },
+    {
+      "text": "血压忽高忽低，头也晕",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "失眠需要吃安眠药吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "焦虑症需要吃药吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "手足口病属于哪类传染病",
+      "label": "disease_query"
+    },
+    {
+      "text": "眼睛红还有好多分泌物",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "孩子起疹子去哪个门诊",
+      "label": "department_query"
+    },
+    {
+      "text": "腰腿疼痛应该看什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "荨麻疹是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "哮喘急性发作怎么处理",
+      "label": "treatment_query"
+    },
+    {
+      "text": "高血脂需要吃他汀吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "支气管哮喘是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "川崎病是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "慢性阻塞性肺疾病严重吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "高血压怎么治",
+      "label": "treatment_query"
+    },
+    {
+      "text": "最近总想喝水还老跑厕所",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "失眠看哪个科室",
+      "label": "department_query"
+    },
+    {
+      "text": "嘴里老有溃疡，反反复复",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "慢性荨麻疹怎么根治",
+      "label": "treatment_query"
+    },
+    {
+      "text": "脑卒中分几种类型",
+      "label": "disease_query"
+    },
+    {
+      "text": "抑郁症应该去哪里看",
+      "label": "department_query"
+    },
+    {
+      "text": "慢阻肺的病因有哪些",
+      "label": "disease_query"
+    },
+    {
+      "text": "上腹一阵一阵疼，还反酸烧心",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "化疗期间饮食要注意什么",
+      "label": "treatment_query"
+    },
+    {
+      "text": "腰背痛得直不起来",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "这个病会不会遗传",
+      "label": "disease_query"
+    },
+    {
+      "text": "甲状腺结节挂哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "情绪低落该看哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "儿童手足口病是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "胆结石手术后多久能恢复",
+      "label": "treatment_query"
+    },
+    {
+      "text": "心慌手抖还特别怕热",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "失眠严重应该找哪个医生",
+      "label": "department_query"
+    },
+    {
+      "text": "我想了解一下冠心病",
+      "label": "disease_query"
+    },
+    {
+      "text": "这两天头晕得厉害，站都站不稳",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "老人胸痛去哪个科室",
+      "label": "department_query"
+    },
+    {
+      "text": "小腿又肿又疼，走路都费劲",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "怀孕血压高挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "肾结石是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "焦虑症怎么自我调节",
+      "label": "treatment_query"
+    },
+    {
+      "text": "脸上身上起了一片片风团很痒",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "便秘很久了该看哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "牙床肿了一块，一按就疼",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "乙肝抗病毒药能停吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "肾结石需要碎石吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "荨麻疹反复发作怎么治",
+      "label": "treatment_query"
+    },
+    {
+      "text": "大便发黑像柏油一样",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "贫血挂血液科对吗",
+      "label": "department_query"
+    },
+    {
+      "text": "脑卒中是什么原因引起的",
+      "label": "disease_query"
+    },
+    {
+      "text": "心脏病复查找哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "手抖挂神经内科还是内分泌科",
+      "label": "department_query"
+    },
+    {
+      "text": "吃不下饭，上腹还老是胀",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "我最近老是头晕还恶心是怎么回事",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "血压控制不好看什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "原发性高血压是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "贫血除了吃药还要注意什么",
+      "label": "treatment_query"
+    },
+    {
+      "text": "打呼噜憋气去哪个科看",
+      "label": "department_query"
+    },
+    {
+      "text": "龋病补牙后要注意什么",
+      "label": "treatment_query"
+    },
+    {
+      "text": "两条腿肿了半个月了",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "月经不调去哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "类风湿关节炎用什么药",
+      "label": "treatment_query"
+    },
+    {
+      "text": "脑卒中后怎么康复",
+      "label": "treatment_query"
+    },
+    {
+      "text": "高血压应该挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "胸口闷得慌，爬两层楼就喘",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "慢性阻塞性肺疾病怎么治",
+      "label": "treatment_query"
+    },
+    {
+      "text": "头晕应该去医院哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "骨质疏松要补钙吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "牙龈出血挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "高血压的病因是什么",
+      "label": "disease_query"
+    },
+    {
+      "text": "老人忘事越来越厉害看哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "肿瘤标志物高需要治疗吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "哮喘要吸激素一辈子吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "胆囊炎和胆结石是一种病吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "胃里烧得慌，吃完饭就反酸",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "连续几天便秘，肚子胀得难受",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "龋病是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "说话突然不利索是不是中风了",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "孩子最近老说腿疼",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "消化性溃疡是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "抑郁症要吃药多久",
+      "label": "treatment_query"
+    },
+    {
+      "text": "胳膊上起了紫红色的斑块",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "脑梗后遗症的康复训练怎么做",
+      "label": "treatment_query"
+    },
+    {
+      "text": "听力下降找哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "皮肤病去哪看比较好",
+      "label": "department_query"
+    },
+    {
+      "text": "胆囊结石是怎么长出来的",
+      "label": "disease_query"
+    },
+    {
+      "text": "慢性胃炎严重吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "上楼梯就觉得气不够用",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "皮肤瘙痒该挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "湿疹去哪个门诊",
+      "label": "department_query"
+    },
+    {
+      "text": "腰椎间盘突出保守治疗怎么做",
+      "label": "treatment_query"
+    },
+    {
+      "text": "心脏彩超异常找哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "什么是原发性高血压",
+      "label": "disease_query"
+    },
+    {
+      "text": "肾结石挂哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "睡眠呼吸暂停综合征有什么危害",
+      "label": "disease_query"
+    },
+    {
+      "text": "咳嗽一个月了吃药也不好",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "贫血去哪个科室查",
+      "label": "department_query"
+    },
+    {
+      "text": "耳鸣听力下降看什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "老慢支应该去哪个科室",
+      "label": "department_query"
+    },
+    {
+      "text": "胆囊结石可以保胆取石吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "鼻子不通气还老流脓鼻涕",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "体检报告异常挂哪个科复诊",
+      "label": "department_query"
+    },
+    {
+      "text": "慢性肾脏病需要透析吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "夜里总是憋醒出一身汗",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "抑郁症的治疗方法有哪些",
+      "label": "treatment_query"
+    },
+    {
+      "text": "糖尿病要去哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "乳腺结节挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "系统性红斑狼疮的病因是什么",
+      "label": "disease_query"
+    },
+    {
+      "text": "脂肪肝严重吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "阿尔茨海默病和帕金森病一样吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "总感觉累，脸色也不好",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "系统性红斑狼疮是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "尿里泡沫特别多还不散",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "脸上起风团该找哪个医生",
+      "label": "department_query"
+    },
+    {
+      "text": "儿童手足口病怎么护理",
+      "label": "treatment_query"
+    },
+    {
+      "text": "肿瘤化疗挂什么科室",
+      "label": "department_query"
+    },
+    {
+      "text": "背上起了一片小疙瘩很痒",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "2型糖尿病有什么危害",
+      "label": "disease_query"
+    },
+    {
+      "text": "贫血吃什么补得快",
+      "label": "treatment_query"
+    },
+    {
+      "text": "小孩抽搐挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "溶血性贫血是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "胆囊结石一定要切掉吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "腰椎间盘突出挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "晕倒急诊挂什么号",
+      "label": "department_query"
+    },
+    {
+      "text": "这几天总是恶心，看见饭就不想吃",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "半夜牙疼得睡不着觉",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "胃癌是一种什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "头晕伴一侧手脚发麻要当心吗",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "拉肚子一天好几趟，还带黏液",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "过敏性鼻炎和感冒怎么区分",
+      "label": "disease_query"
+    },
+    {
+      "text": "腰椎间盘突出是怎么回事",
+      "label": "disease_query"
+    },
+    {
+      "text": "手脚发麻已经一个星期了",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "肺结核能治好吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "突然看东西模糊，眼前发黑",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "这两天腿上起了红疹子不疼不痒",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "肺炎要打几天吊针",
+      "label": "treatment_query"
+    },
+    {
+      "text": "前列腺增生要手术吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "尿频尿急还疼，特别难受",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "胃溃疡四联疗法怎么吃",
+      "label": "treatment_query"
+    },
+    {
+      "text": "最近总是咳嗽还带血丝",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "肿瘤复查挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "化疗后白细胞低怎么办",
+      "label": "treatment_query"
+    },
+    {
+      "text": "哮喘控制不好怎么办",
+      "label": "treatment_query"
+    },
+    {
+      "text": "请介绍一下川崎病",
+      "label": "disease_query"
+    },
+    {
+      "text": "胃疼反酸挂哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "感冒需要吃消炎药吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "腰椎间盘突出必须开刀吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "发烧三天了还一直咳嗽有痰",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "小肚子疼，白带还多",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "帕金森病吃药能控制多久",
+      "label": "treatment_query"
+    },
+    {
+      "text": "焦虑症算严重的精神病吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "浑身没劲，稍微动动就心慌",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "老人记性越来越差还总忘事",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "原发性支气管肺癌有几种类型",
+      "label": "disease_query"
+    },
+    {
+      "text": "关节疼吃什么药不伤胃",
+      "label": "treatment_query"
+    },
+    {
+      "text": "心肌梗死是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "阑尾炎是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "冠心病需要放支架吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "慢性肾脏病分期是什么标准",
+      "label": "disease_query"
+    },
+    {
+      "text": "感冒和流感有什么区别",
+      "label": "disease_query"
+    },
+    {
+      "text": "血糖控制不好怎么办",
+      "label": "treatment_query"
+    },
+    {
+      "text": "白血病的分类有哪些",
+      "label": "disease_query"
+    },
+    {
+      "text": "类风湿关节炎是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "体检发现肝囊肿看哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "睡着了打呼噜，白天还总犯困",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "听说肺结核要隔离是真的吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "2型糖尿病吃什么药",
+      "label": "treatment_query"
+    },
+    {
+      "text": "视力下降挂什么科室",
+      "label": "department_query"
+    },
+    {
+      "text": "肺癌早期需要手术吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "荨麻疹能用激素吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "睡眠呼吸暂停综合征是什么",
+      "label": "disease_query"
+    },
+    {
+      "text": "他汀类药要终身吃吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "排尿困难挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "儿童手足口病去哪个门诊",
+      "label": "department_query"
+    },
+    {
+      "text": "尿路感染吃几天药能好",
+      "label": "treatment_query"
+    },
+    {
+      "text": "高血压要一直吃药吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "孕检查出高血压去哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "早上起来手指僵硬握不上拳",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "急性阑尾炎一定要手术吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "龋齿补牙疼不疼",
+      "label": "treatment_query"
+    },
+    {
+      "text": "发热待查应该挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "耳朵里嗡嗡响，听声音也发闷",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "孩子昨晚开始拉肚子还发烧",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "手足口病需要输液吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "糖尿病能治好吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "糖尿病到底是个什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "肺结核治疗期间要注意什么",
+      "label": "treatment_query"
+    },
+    {
+      "text": "肺炎一定要住院吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "甲亢能断根吗",
+      "label": "treatment_query"
+    },
+    {
+      "text": "骨质疏松的危险因素有哪些",
+      "label": "disease_query"
+    },
+    {
+      "text": "前列腺问题去哪个科室",
+      "label": "department_query"
+    },
+    {
+      "text": "胸痛伴低烧可能是什么病",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "眼睛红痒挂什么号",
+      "label": "department_query"
+    },
+    {
+      "text": "关节痛去哪一科",
+      "label": "department_query"
+    },
+    {
+      "text": "咳痰带血是不是很严重",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "孩子发烧到39度还一直哭",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "眼睛干涩发痒，还老流泪",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "刷牙老出血，牙龈也肿",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "流感是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "类风湿关节炎会致残吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "尿路感染是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "腹痛伴发烧要挂哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "月经量特别大，人也没力气",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "耳鸣好几个月了要不要紧",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "心力衰竭能活多久",
+      "label": "disease_query"
+    },
+    {
+      "text": "帕金森病可怕吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "阿尔茨海默病是不是老年痴呆",
+      "label": "disease_query"
+    },
+    {
+      "text": "牙疼去医院挂哪个科",
+      "label": "department_query"
+    },
+    {
+      "text": "甲状腺功能亢进症是什么",
+      "label": "disease_query"
+    },
+    {
+      "text": "尿路感染是什么引起的",
+      "label": "disease_query"
+    },
+    {
+      "text": "焦虑症的定义是什么",
+      "label": "disease_query"
+    },
+    {
+      "text": "咳血要去什么科室看",
+      "label": "department_query"
+    },
+    {
+      "text": "总觉得心里发慌，喘不上气",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "手指关节又肿又痛，早上动不了",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "急性胰腺炎是什么病",
+      "label": "disease_query"
+    },
+    {
+      "text": "脚踝肿了按下去一个坑",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "咳嗽两周了会不会是肺结核",
+      "label": "symptom_consult"
+    },
+    {
+      "text": "尿痛尿频看哪个科室",
+      "label": "department_query"
+    },
+    {
+      "text": "孩子说话晚挂什么科",
+      "label": "department_query"
+    },
+    {
+      "text": "肺结核会传染给家人吗",
+      "label": "disease_query"
+    },
+    {
+      "text": "什么是慢性肾脏病",
+      "label": "disease_query"
+    },
+    {
+      "text": "孩子手心和脚心起了小水泡",
+      "label": "symptom_consult"
+    }
+  ]
+}

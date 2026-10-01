@@ -1,0 +1,225 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix med:  <http://zhiyu.example.org/medical#> .
+
+# =============================================================================
+#  智愈医典 · 医疗本体（Medical Ontology）
+#  用途：Apache Jena 规则推理的本体基础；与 Neo4j 图谱 Schema 一一对应
+#  加载：java -cp "jena/lib/*" riot --validate ontology_medical.ttl
+# =============================================================================
+
+<http://zhiyu.example.org/medical>
+    a owl:Ontology ;
+    rdfs:label "智愈医典医疗知识本体" ;
+    rdfs:comment "描述疾病、症状、药物、科室、检查、治疗方法及其关系的轻量医疗本体" ;
+    owl:versionInfo "1.0.0" .
+
+# =============================================================================
+#  一、类定义（Classes）
+# =============================================================================
+
+med:MedicalEntity a owl:Class ;
+    rdfs:label "医学实体" ;
+    rdfs:comment "所有医学概念的超类" .
+
+med:Disease a owl:Class ;
+    rdfs:subClassOf med:MedicalEntity ;
+    rdfs:label "疾病" ;
+    rdfs:comment "以病理过程为特征的医学状态，如原发性高血压" .
+
+med:Symptom a owl:Class ;
+    rdfs:subClassOf med:MedicalEntity ;
+    rdfs:label "症状" ;
+    rdfs:comment "患者主观感受到的异常表现或客观体征，如头晕、发热" .
+
+med:Drug a owl:Class ;
+    rdfs:subClassOf med:MedicalEntity ;
+    rdfs:label "药物" ;
+    rdfs:comment "用于预防、治疗疾病的物质，记录通用名" .
+
+med:Department a owl:Class ;
+    rdfs:subClassOf med:MedicalEntity ;
+    rdfs:label "科室" ;
+    rdfs:comment "医院的临床科室，含一级与二级科室" .
+
+med:Treatment a owl:Class ;
+    rdfs:subClassOf med:MedicalEntity ;
+    rdfs:label "治疗方法" ;
+    rdfs:comment "治疗手段类别，如药物治疗、手术治疗、饮食治疗" .
+
+med:Check a owl:Class ;
+    rdfs:subClassOf med:MedicalEntity ;
+    rdfs:label "检查项目" ;
+    rdfs:comment "诊断性检查，如血常规、CT肺动脉造影" .
+
+med:Population a owl:Class ;
+    rdfs:subClassOf med:MedicalEntity ;
+    rdfs:label "易感人群" ;
+    rdfs:comment "疾病高发人群类别，如中老年人、肥胖人群" .
+
+med:Source a owl:Class ;
+    rdfs:label "文献来源" ;
+    rdfs:comment "知识的溯源锚点，含 PMID / DOI / 指南名称，保证知识 100% 可追溯" .
+
+med:InfectiousDisease a owl:Class ;
+    rdfs:subClassOf med:Disease ;
+    rdfs:label "传染性疾病" ;
+    rdfs:comment "具有传染性的疾病子类，需采取隔离防护措施" .
+
+med:ChronicDisease a owl:Class ;
+    rdfs:subClassOf med:Disease ;
+    rdfs:label "慢性疾病" ;
+    rdfs:comment "病程长、需长期管理的疾病" .
+
+med:EmergencyCondition a owl:Class ;
+    rdfs:subClassOf med:Disease ;
+    rdfs:label "急危重症" ;
+    rdfs:comment "需要立即医疗干预的疾病状态，问答系统须引导立即就医" .
+
+# =============================================================================
+#  二、对象属性（Object Properties）
+# =============================================================================
+
+med:hasSymptom a owl:ObjectProperty ;
+    rdfs:domain med:Disease ; rdfs:range med:Symptom ;
+    rdfs:label "症状" ; rdfs:comment "疾病表现出的症状" .
+
+med:treatedBy a owl:ObjectProperty ;
+    rdfs:domain med:Disease ; rdfs:range med:Treatment ;
+    rdfs:label "治疗" ; rdfs:comment "疾病采用的治疗方法" .
+
+med:usesDrug a owl:ObjectProperty ;
+    rdfs:domain med:Disease ; rdfs:range med:Drug ;
+    rdfs:label "用药" ; rdfs:comment "疾病常用的药物" .
+
+med:belongsToDepartment a owl:ObjectProperty ;
+    rdfs:domain med:Disease ; rdfs:range med:Department ;
+    rdfs:label "科室" ; rdfs:comment "疾病归属或就诊的科室" .
+
+med:needsCheck a owl:ObjectProperty ;
+    rdfs:domain med:Disease ; rdfs:range med:Check ;
+    rdfs:label "检查" ; rdfs:comment "诊断该疾病所需的检查项目" .
+
+med:affectsPopulation a owl:ObjectProperty ;
+    rdfs:domain med:Disease ; rdfs:range med:Population ;
+    rdfs:label "易感人群" ; rdfs:comment "疾病高发的人群类别" .
+
+med:hasComplication a owl:ObjectProperty ;
+    rdfs:domain med:Disease ; rdfs:range med:Disease ;
+    rdfs:label "并发症" ; rdfs:comment "疾病可能引起的并发症" ;
+    owl:irreflexive true .
+
+med:differentialWith a owl:ObjectProperty ;
+    rdfs:domain med:Disease ; rdfs:range med:Disease ;
+    rdfs:label "鉴别诊断" ; rdfs:comment "需要鉴别的其他疾病" ;
+    owl:symmetric true ; owl:irreflexive true .
+
+#: 由规则推理得出的隐式关系（非人工标注）
+med:relatedTo a owl:ObjectProperty ;
+    rdfs:domain med:Disease ; rdfs:range med:Disease ;
+    rdfs:label "相关疾病" ;
+    rdfs:comment "由共享症状 / 共享治疗方案 / 同科室等规则推理得出的疾病相关性" ;
+    owl:symmetric true ; owl:irreflexive true .
+
+med:mayCauseSymptom a owl:ObjectProperty ;
+    rdfs:domain med:Disease ; rdfs:range med:Symptom ;
+    rdfs:label "可能间接引起的症状" ;
+    rdfs:comment "经由并发症传递得到的间接症状关系（规则 R3）" .
+
+med:needsIsolation a owl:ObjectProperty ;
+    rdfs:domain med:InfectiousDisease ; rdfs:range med:Treatment ;
+    rdfs:label "需隔离防护" ;
+    rdfs:comment "传染性疾病需采取隔离/防护措施（规则 R5）" .
+
+med:proves a owl:ObjectProperty ;
+    rdfs:domain med:Source ; rdfs:range med:MedicalEntity ;
+    rdfs:label "知识来源" ;
+    rdfs:comment "文献来源为医学实体提供证据支持" .
+
+# =============================================================================
+#  三、数据属性（Datatype Properties）
+# =============================================================================
+
+med:diseaseId a owl:DatatypeProperty ; rdfs:domain med:Disease ; rdfs:range xsd:string ;
+    rdfs:label "疾病编号" .
+med:name a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "名称" .
+med:alias a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "别名" .
+med:definition a owl:DatatypeProperty ; rdfs:domain med:Disease ; rdfs:range xsd:string ;
+    rdfs:label "疾病定义" .
+med:cause a owl:DatatypeProperty ; rdfs:domain med:Disease ; rdfs:range xsd:string ;
+    rdfs:label "病因" .
+med:diagnosis a owl:DatatypeProperty ; rdfs:domain med:Disease ; rdfs:range xsd:string ;
+    rdfs:label "诊断" .
+med:treatmentDescription a owl:DatatypeProperty ; rdfs:domain med:Disease ; rdfs:range xsd:string ;
+    rdfs:label "治疗描述" .
+med:prognosis a owl:DatatypeProperty ; rdfs:domain med:Disease ; rdfs:range xsd:string ;
+    rdfs:label "预后" .
+med:category1 a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "一级分类" .
+med:category2 a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "二级分类" .
+med:isInfectious a owl:DatatypeProperty ; rdfs:domain med:Disease ; rdfs:range xsd:boolean ;
+    rdfs:label "是否传染" .
+med:confidence a owl:DatatypeProperty ; rdfs:range xsd:decimal ;
+    rdfs:label "关系置信度" ; rdfs:comment "取值 0~1，由关系抽取模型给出" .
+
+med:pmid a owl:DatatypeProperty ; rdfs:domain med:Source ; rdfs:range xsd:string ; rdfs:label "PubMed ID" .
+med:doi a owl:DatatypeProperty ; rdfs:domain med:Source ; rdfs:range xsd:string ; rdfs:label "DOI" .
+med:journal a owl:DatatypeProperty ; rdfs:domain med:Source ; rdfs:range xsd:string ; rdfs:label "期刊" .
+med:year a owl:DatatypeProperty ; rdfs:domain med:Source ; rdfs:range xsd:integer ; rdfs:label "年份" .
+med:authority a owl:DatatypeProperty ; rdfs:domain med:Source ; rdfs:range xsd:string ;
+    rdfs:label "权威等级" ; rdfs:comment "A=指南/教材，B=期刊文献，C=其他" .
+
+# =============================================================================
+#  四、类公理（用于规则推理的语义约束）
+# =============================================================================
+
+#: 若某疾病的 isInfectious 为 true，则它属于 InfectiousDisease 类
+med:InfectiousDisease owl:equivalentClass [
+    a owl:Restriction ;
+    owl:onProperty med:isInfectious ;
+    owl:hasValue true
+] .
+
+#: 有并发症的疾病属于复杂疾病（可用于风险提示）
+med:hasComplication rdfs:subPropertyOf med:relatedTo .
+
+# =============================================================================
+#  五、示例个体（少量，完整数据由 Neo4j 与 JSON 种子提供）
+# =============================================================================
+
+med:D0001 a med:ChronicDisease ;
+    med:diseaseId "D0001" ;
+    med:name "原发性高血压" ;
+    med:alias "高血压病" ;
+    med:category1 "内科" ;
+    med:category2 "心血管内科" ;
+    med:definition "原发性高血压是以体循环动脉压升高为主要临床表现的心血管综合征。" ;
+    med:isInfectious false ;
+    med:hasSymptom med:S0001, med:S0002 ;
+    med:belongsToDepartment med:DEPT01, med:DEPT02 ;
+    med:hasComplication med:D0006 ;
+    med:proves med:SRC001 .
+
+med:S0001 a med:Symptom ; med:name "头晕" .
+med:S0002 a med:Symptom ; med:name "头痛" .
+med:DEPT01 a med:Department ; med:name "内科" ; med:category1 "一级科室" .
+med:DEPT02 a med:Department ; med:name "心血管内科" ; med:category1 "二级科室" .
+med:D0006 a med:Disease ; med:name "冠心病" .
+
+med:D0013 a med:InfectiousDisease ;
+    med:diseaseId "D0013" ;
+    med:name "流行性感冒" ;
+    med:isInfectious true ;
+    med:hasSymptom med:S0007 ;
+    med:belongsToDepartment med:DEPT06 .
+
+med:S0007 a med:Symptom ; med:name "发热" .
+med:DEPT06 a med:Department ; med:name "感染性疾病科" .
+
+med:SRC001 a med:Source ;
+    med:pmid "32130469" ;
+    med:doi "10.1097/HJH.0000000000002425" ;
+    med:journal "Hypertension" ;
+    med:year 2020 ;
+    med:authority "A" .
