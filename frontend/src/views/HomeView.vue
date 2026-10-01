@@ -1,5 +1,10 @@
 <template>
   <div class="mkw-page home-view">
+    <section class="home-welcome">
+      <h1 class="home-welcome__title">欢迎朱朱</h1>
+      <p class="home-welcome__subtitle">智愈医典 · 医疗大数据知识问答系统</p>
+    </section>
+
     <section class="mkw-hero">
       <h1 class="mkw-hero__title">核心功能</h1>
       <p class="mkw-hero__subtitle">
@@ -190,6 +195,74 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+/* ---- 欢迎横幅 ---- */
+.home-welcome {
+  position: relative;
+  text-align: center;
+  padding: 52px 20px 44px;
+  margin-bottom: 26px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #1d6fd1 0%, #2f9e8f 100%);
+  box-shadow: 0 10px 30px rgba(29, 111, 209, 0.25);
+  overflow: hidden;
+}
+
+.home-welcome::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.12), transparent 40%);
+  pointer-events: none;
+}
+
+.home-welcome__title {
+  position: relative;
+  margin: 0;
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: 10px;
+  color: #ffffff;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.22);
+  animation: home-welcome-pop 0.7s cubic-bezier(0.22, 1.2, 0.36, 1) both;
+}
+
+.home-welcome__subtitle {
+  position: relative;
+  margin: 14px 0 0;
+  font-size: 17px;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+@keyframes home-welcome-pop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .home-welcome {
+    padding: 38px 14px 32px;
+  }
+
+  .home-welcome__title {
+    font-size: 38px;
+    letter-spacing: 6px;
+  }
+
+  .home-welcome__subtitle {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+}
+
 .home-view__grid {
   display: grid;
   gap: 20px;
