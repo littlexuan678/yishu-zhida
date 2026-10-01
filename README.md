@@ -16,6 +16,8 @@
 **四大核心功能**：知识图谱可视化 · 智能疾病查询 · 可解释智能问答 · 多维数据分析
 **三大核心创新**：★改进 PCNN 关系抽取（医疗关键词注意力，召回率 +8.3%）★医疗专属 RAG 提示工程（100+ 模板，准确率 +12.1%）★轻量化图谱可视化整合
 
+> 🌐 **在线演示**：https://yishu-zhida.app.workbuddy.host/ （一体化单容器部署，内存图谱 + 医疗 RAG 模板引擎，开箱即体验）
+>
 > ⚡ **3 分钟跑通演示**（无需 GPU / 大模型 / Neo4j，全自动降级为离线演示模式）：
 > ```bash
 > cd backend && pip install -r requirements-lite.txt && uvicorn main:app --reload --port 8000

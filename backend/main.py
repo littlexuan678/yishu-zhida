@@ -273,6 +273,11 @@ app.include_router(api_router, prefix=settings.API_PREFIX)
 #  默认（未设置 STATIC_DIR）行为完全不变：/ 返回服务信息 JSON。
 # ---------------------------------------------------------------------------
 STATIC_DIR = os.environ.get("STATIC_DIR", "").strip()
+if not STATIC_DIR:
+    # 约定：main.py 同级存在 static/ 目录（前端构建产物）时自动启用一体化托管
+    _default_static = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+    if os.path.isdir(_default_static):
+        STATIC_DIR = _default_static
 STATIC_ENABLED = bool(STATIC_DIR) and os.path.isdir(STATIC_DIR)
 if STATIC_ENABLED:
     STATIC_DIR = os.path.abspath(STATIC_DIR)
