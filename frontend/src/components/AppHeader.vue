@@ -1,6 +1,10 @@
 <template>
   <header class="app-header">
     <div class="app-header__left">
+      <el-icon class="app-header__menu-btn" :size="22" @click="store.toggleMobileNav()">
+        <Expand v-if="!store.mobileNavOpen" />
+        <Fold v-else />
+      </el-icon>
       <el-icon class="app-header__badge" :size="20"><FirstAidKit /></el-icon>
       <h1 class="app-header__title">智愈医典·医疗知识信息问答系统</h1>
     </div>
@@ -11,7 +15,7 @@
         离线演示数据
       </span>
       <el-button class="app-header__logout" type="danger" :icon="SwitchButton" @click="handleLogout">
-        安全退出
+        <span class="app-header__logout-text">安全退出</span>
       </el-button>
     </div>
   </header>
@@ -20,7 +24,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { SwitchButton, FirstAidKit, WarningFilled } from '@element-plus/icons-vue'
+import { SwitchButton, FirstAidKit, WarningFilled, Expand, Fold } from '@element-plus/icons-vue'
 import { useAppStore } from '@/store/app'
 
 const router = useRouter()
@@ -112,13 +116,49 @@ async function handleLogout () {
   border-color: #f78989;
 }
 
+.app-header__menu-btn {
+  display: none;
+  color: var(--mkw-primary);
+  cursor: pointer;
+  flex: 0 0 auto;
+  padding: 4px;
+}
+
 @media (max-width: 900px) {
   .app-header {
     padding: 0 12px;
   }
 
+  .app-header__menu-btn {
+    display: inline-flex;
+  }
+
   .app-header__title {
     font-size: 15px;
+  }
+}
+
+@media (max-width: 560px) {
+  .app-header__title {
+    font-size: 13px;
+    letter-spacing: 0;
+  }
+
+  .app-header__badge {
+    display: none;
+  }
+
+  .app-header__logout {
+    padding: 8px 10px;
+  }
+
+  .app-header__logout-text {
+    display: none;
+  }
+
+  .app-header__offline {
+    font-size: 11px;
+    padding: 2px 8px;
   }
 }
 </style>

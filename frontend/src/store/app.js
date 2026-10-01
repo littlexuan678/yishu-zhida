@@ -43,7 +43,9 @@ export const useAppStore = defineStore('app', {
     overviewMetrics: [],
     /** 后端是否处于离线演示模式 */
     offline: false,
-    loading: false
+    loading: false,
+    /** 移动端抽屉导航开关（≤900px 时侧边栏改为抽屉式） */
+    mobileNavOpen: false
   }),
 
   getters: {
@@ -111,6 +113,14 @@ export const useAppStore = defineStore('app', {
 
     setActiveMenu (path) {
       this.activeMenu = path
+    },
+
+    toggleMobileNav () {
+      this.mobileNavOpen = !this.mobileNavOpen
+    },
+
+    closeMobileNav () {
+      this.mobileNavOpen = false
     },
 
     async fetchGraphStats () {

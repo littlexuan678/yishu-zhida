@@ -1,10 +1,13 @@
 <template>
-  <aside class="side-nav">
+  <aside class="side-nav" :class="{ 'is-open': store.mobileNavOpen }">
     <div class="side-nav__logo">
       <div class="side-nav__logo-mark">
         <el-icon :size="22"><FirstAidKit /></el-icon>
       </div>
       <span class="side-nav__logo-text">智能医学百科</span>
+      <el-icon class="side-nav__close" :size="20" @click="store.closeMobileNav()">
+        <Close />
+      </el-icon>
     </div>
 
     <nav class="side-nav__menu">
@@ -38,10 +41,13 @@ import {
   Search,
   ChatDotRound,
   DataAnalysis,
-  FirstAidKit
+  FirstAidKit,
+  Close
 } from '@element-plus/icons-vue'
+import { useAppStore } from '@/store/app'
 
 const route = useRoute()
+const store = useAppStore()
 
 const navItems = [
   { path: '/', title: '主页', icon: HomeFilled },
@@ -174,18 +180,37 @@ const isActive = computed(() => (path) => {
   box-shadow: 0 0 6px #7ef0b0;
 }
 
+.side-nav__close {
+  display: none;
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
 @media (max-width: 900px) {
   .side-nav {
-    width: 168px;
+    width: 236px;
+    transform: translateX(-110%);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .side-nav.is-open {
+    transform: translateX(0);
+    box-shadow: 0 0 48px rgba(15, 23, 42, 0.35);
+  }
+
+  .side-nav__close {
+    display: inline-flex;
   }
 
   .side-nav__item {
-    padding: 12px 14px;
+    padding: 13px 16px;
     font-size: 14px;
   }
 
   .side-nav__logo-text {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 </style>

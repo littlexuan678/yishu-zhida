@@ -802,5 +802,15 @@ onBeforeUnmount(() => {
   .graph-view__stats {
     grid-template-columns: 1fr;
   }
+
+  /* 画布与侧面板上下堆叠，避免 280px 侧栏挤爆小屏 */
+  .graph-view__main {
+    grid-template-columns: 1fr;
+  }
+
+  .graph-view__input {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
 }
 </style>

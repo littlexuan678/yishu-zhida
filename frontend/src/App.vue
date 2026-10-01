@@ -2,6 +2,13 @@
   <div class="app-shell">
     <SideNav />
 
+    <!-- 移动端抽屉遮罩：点击关闭侧边栏 -->
+    <div
+      v-if="store.mobileNavOpen"
+      class="app-shell__mask"
+      @click="store.closeMobileNav()"
+    ></div>
+
     <div class="app-shell__main">
       <AppHeader />
 
@@ -21,7 +28,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import SideNav from '@/components/SideNav.vue'
 import AppHeader from '@/components/AppHeader.vue'
@@ -30,6 +37,11 @@ import { useAppStore } from '@/store/app'
 
 const store = useAppStore()
 const route = useRoute()
+
+// 路由切换后自动收起移动端抽屉导航
+watch(() => route.path, () => {
+  store.closeMobileNav()
+})
 
 onMounted(() => {
   store.initSession()
@@ -72,13 +84,25 @@ onMounted(() => {
   min-height: 0;
 }
 
+.app-shell__mask {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .app-shell__main {
-    margin-left: 168px;
+    margin-left: 0;
   }
 
   .app-shell__content {
-    padding: 16px 14px 6px;
+    padding: 14px 12px 6px;
+  }
+
+  .app-shell__mask {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    z-index: 99;
   }
 }
 </style>
