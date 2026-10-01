@@ -250,11 +250,14 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Search, Document, User } from '@element-plus/icons-vue'
 import DiseaseCard from '@/components/DiseaseCard.vue'
 import DisclaimerBar from '@/components/DisclaimerBar.vue'
 import { getDiseaseDetail, getHotKeywords, searchDisease } from '@/api'
+
+const route = useRoute()
 
 const FALLBACK_HOT = ['感冒', '高血压', '糖尿病', '冠心病', '肺炎', '胃炎']
 
@@ -333,7 +336,14 @@ onMounted(async () => {
   } catch (e) {
     hotKeywords.value = [...FALLBACK_HOT]
   }
-  doSearch(1)
+  // 支持 ?name=xxx 进入（如知识图谱节点跳转）：自动检索并打开详情
+  const qname = typeof route.query.name === 'string' ? route.query.name.trim() : ''
+  if (qname) keyword.value = qname
+  await doSearch(1)
+  if (qname && items.value.length) {
+    const hit = items.value.find((d) => d.name === qname) || items.value[0]
+    openDetail(hit)
+  }
 })
 </script>
 

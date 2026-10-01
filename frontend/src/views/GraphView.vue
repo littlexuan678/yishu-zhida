@@ -136,7 +136,7 @@
     </section>
 
     <!-- 节点详情抽屉 -->
-    <el-drawer v-model="drawerVisible" title="实体详情" size="420px" :with-header="true">
+    <el-drawer v-model="drawerVisible" title="实体详情" :size="drawerSize" :with-header="true">
       <div v-if="current" class="node-detail">
         <div class="node-detail__head">
           <span class="node-detail__dot" :style="{ background: current.color || store.colorOf(current.type) }"></span>
@@ -197,7 +197,18 @@
         </div>
 
         <div class="node-detail__actions">
-          <el-button class="mkw-btn-primary" :icon="Aim" @click="centerOn(current.name)">
+          <el-button
+            v-if="isDiseaseNode"
+            class="mkw-btn-primary"
+            :icon="Reading"
+            @click="goDiseaseKnowledge"
+          >
+            查看疾病知识
+          </el-button>
+          <el-button class="mkw-btn-primary" :icon="ChatDotRound" @click="goAskAbout">
+            去问答了解它
+          </el-button>
+          <el-button class="mkw-btn-ghost" :icon="Aim" @click="centerOn(current.name)">
             以此节点为中心
           </el-button>
           <el-button class="mkw-btn-ghost" :icon="CopyDocument" @click="copyName(current.name)">复制名称</el-button>
@@ -209,6 +220,7 @@
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import {
   Search,
@@ -221,7 +233,9 @@ import {
   Loading,
   Document,
   Aim,
-  CopyDocument
+  CopyDocument,
+  Reading,
+  ChatDotRound
 } from '@element-plus/icons-vue'
 import GraphCanvas from '@/components/GraphCanvas.vue'
 import { getGraphStats, getSubgraph, searchEntity } from '@/api'
@@ -241,6 +255,7 @@ const REL_LABELS = {
 }
 
 const store = useAppStore()
+const router = useRouter()
 const canvasRef = ref(null)
 const canvasWrap = ref(null)
 
@@ -250,6 +265,7 @@ const fullscreen = ref(false)
 const graphMessage = ref('')
 const suggestions = ref([])
 const drawerVisible = ref(false)
+const drawerSize = ref('420px')
 const current = ref(null)
 
 const graph = reactive({ nodes: [], links: [] })
@@ -372,9 +388,30 @@ async function loadSuggestions (q) {
   }
 }
 
+const isDiseaseNode = computed(() => !!current.value && current.value.type === 'disease')
+
 function openNode (node) {
   current.value = node
+  // 小屏设备抽屉占近全宽，避免 420px 固定宽度溢出
+  drawerSize.value = window.innerWidth <= 560 ? '94%' : '420px'
   drawerVisible.value = true
+}
+
+/** 疾病节点 → 跳转疾病查询页并自动打开详情 */
+function goDiseaseKnowledge () {
+  const name = current.value && current.value.name
+  if (!name) return
+  drawerVisible.value = false
+  router.push({ path: '/disease', query: { name } })
+}
+
+/** 任意节点 → 跳转智能问答，自动提问该实体 */
+function goAskAbout () {
+  const c = current.value
+  if (!c || !c.name) return
+  const label = c.label || store.labelOf(c.type)
+  drawerVisible.value = false
+  router.push({ path: '/chat', query: { q: `请介绍${label}「${c.name}」的相关知识` } })
 }
 
 function centerOn (name) {
@@ -784,8 +821,13 @@ onBeforeUnmount(() => {
 
 .node-detail__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   padding-top: 6px;
+
+  .el-button {
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 1280px) {

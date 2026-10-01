@@ -234,11 +234,14 @@
 
 <script setup>
 import { computed, nextTick, onMounted, reactive, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Cpu, UserFilled, Promotion, Guide, Link, Document, Select, CopyDocument } from '@element-plus/icons-vue'
 import DisclaimerBar from '@/components/DisclaimerBar.vue'
 import { askQuestion } from '@/api'
 import { useAppStore } from '@/store/app'
+
+const route = useRoute()
 
 const DEFAULT_QUESTIONS = [
   '成人呼吸窘迫综合征的症状有哪些？',
@@ -474,6 +477,9 @@ onMounted(() => {
     intent: { label_cn: '问候', label: 'greeting' },
     disclaimer: '本系统为演示原型，所有 AI 输出仅供参考，不能替代执业医师诊断。'
   })
+  // 支持 ?q=xxx 进入（如知识图谱节点「去问答了解它」）：自动提问
+  const preset = typeof route.query.q === 'string' ? route.query.q.trim() : ''
+  if (preset) send(preset)
 })
 </script>
 
