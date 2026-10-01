@@ -149,6 +149,25 @@
           <span class="mkw-pill mkw-pill--gray">连接度 {{ current.degree || 0 }}</span>
         </div>
 
+        <!-- 操作按钮置顶：跳转入口一眼可见，不用滚到底部 -->
+        <div class="node-detail__actions node-detail__actions--top">
+          <el-button
+            v-if="isDiseaseNode"
+            class="mkw-btn-primary"
+            :icon="Reading"
+            @click="goDiseaseKnowledge"
+          >
+            查看疾病知识
+          </el-button>
+          <el-button class="mkw-btn-primary" :icon="ChatDotRound" @click="goAskAbout">
+            去问答了解它
+          </el-button>
+          <el-button class="mkw-btn-ghost" :icon="Aim" @click="centerOn(current.name)">
+            以此节点为中心
+          </el-button>
+          <el-button class="mkw-btn-ghost" :icon="CopyDocument" @click="copyName(current.name)">复制名称</el-button>
+        </div>
+
         <div class="node-detail__section">
           <div class="node-detail__section-title">属性信息</div>
           <ul v-if="propertyList.length" class="node-detail__props">
@@ -196,23 +215,6 @@
           </ul>
         </div>
 
-        <div class="node-detail__actions">
-          <el-button
-            v-if="isDiseaseNode"
-            class="mkw-btn-primary"
-            :icon="Reading"
-            @click="goDiseaseKnowledge"
-          >
-            查看疾病知识
-          </el-button>
-          <el-button class="mkw-btn-primary" :icon="ChatDotRound" @click="goAskAbout">
-            去问答了解它
-          </el-button>
-          <el-button class="mkw-btn-ghost" :icon="Aim" @click="centerOn(current.name)">
-            以此节点为中心
-          </el-button>
-          <el-button class="mkw-btn-ghost" :icon="CopyDocument" @click="copyName(current.name)">复制名称</el-button>
-        </div>
       </div>
     </el-drawer>
   </div>
@@ -828,6 +830,14 @@ onBeforeUnmount(() => {
   .el-button {
     margin-left: 0;
   }
+}
+
+.node-detail__actions--top {
+  margin-bottom: 18px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f0f7ff;
+  border: 1px dashed #c6e2ff;
 }
 
 @media (max-width: 1280px) {
