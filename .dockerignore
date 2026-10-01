@@ -1,0 +1,45 @@
+# =============================================================================
+#  医数智答 · 智愈医典 —— Docker 构建上下文排除清单
+#  注意：backend/data/seed（内存图谱种子数据）必须保留，勿加入本文件
+# =============================================================================
+
+# 版本控制
+.git
+.gitignore
+.gitattributes
+.github
+
+# 前端产物与依赖（镜像内重新构建）
+frontend/node_modules
+frontend/dist
+node_modules
+
+# Python 缓存与虚拟环境
+**/__pycache__
+**/*.pyc
+**/*.pyo
+.venv
+.venv-*
+venv
+
+# 运行期产物
+backend/logs
+backend/data/processed
+backend/models
+**/*.log
+
+# 本地环境配置（密钥绝不进入镜像）
+.env
+**/.env
+!.env.example
+!frontend/.env.development
+!frontend/.env.production
+
+# 文档与截图（运行不需要）
+docs/screenshots
+*.md
+!README.md
+
+# 系统文件
+.DS_Store
+Thumbs.db

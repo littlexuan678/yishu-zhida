@@ -16,6 +16,7 @@
 """
 from __future__ import annotations
 
+import os
 import time
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
@@ -24,7 +25,7 @@ from typing import Any, AsyncIterator, Dict
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 from app.app_layer.api.router import api_router
 from app.config import settings
@@ -262,19 +263,51 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
 app.include_router(api_router, prefix=settings.API_PREFIX)
 
 
-@app.get("/", tags=["系统"], summary="服务根路径", include_in_schema=False)
-async def root() -> Dict[str, Any]:
-    return {
-        "name": settings.APP_NAME,
-        "product": "智愈医典",
-        "version": settings.APP_VERSION,
-        "status": "running",
-        "docs": "/docs",
-        "api_prefix": settings.API_PREFIX,
-        "uptime_seconds": round(time.time() - START_TIME, 1),
-        "server_time": datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds"),
-        "disclaimer": "本系统为演示原型，所有 AI 输出仅供参考，不能替代执业医师诊断。",
-    }
+# ---------------------------------------------------------------------------
+#  可选：单容器一体化部署 —— 托管前端静态文件
+# ---------------------------------------------------------------------------
+#  设置环境变量 STATIC_DIR 指向前端构建产物（dist）目录后生效：
+#    * GET /            → dist/index.html
+#    * GET /assets/...  → dist 下真实静态文件
+#    * GET 其他非 API 路径 → 回退 index.html（Vue Router history 模式）
+#  默认（未设置 STATIC_DIR）行为完全不变：/ 返回服务信息 JSON。
+# ---------------------------------------------------------------------------
+STATIC_DIR = os.environ.get("STATIC_DIR", "").strip()
+STATIC_ENABLED = bool(STATIC_DIR) and os.path.isdir(STATIC_DIR)
+if STATIC_ENABLED:
+    STATIC_DIR = os.path.abspath(STATIC_DIR)
+    SPA_INDEX = os.path.join(STATIC_DIR, "index.html")
+    logger.info("单容器模式：已启用前端静态托管 STATIC_DIR=%s", STATIC_DIR)
+
+
+if not STATIC_ENABLED:
+
+    @app.get("/", tags=["系统"], summary="服务根路径", include_in_schema=False)
+    async def root() -> Dict[str, Any]:
+        return {
+            "name": settings.APP_NAME,
+            "product": "智愈医典",
+            "version": settings.APP_VERSION,
+            "status": "running",
+            "docs": "/docs",
+            "api_prefix": settings.API_PREFIX,
+            "uptime_seconds": round(time.time() - START_TIME, 1),
+            "server_time": datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds"),
+            "disclaimer": "本系统为演示原型，所有 AI 输出仅供参考，不能替代执业医师诊断。",
+        }
+
+
+if STATIC_ENABLED:
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def spa_static(full_path: str) -> FileResponse:
+        """SPA 静态托管 + history 路由回退（注册在最后，API 路由优先匹配）"""
+        if full_path:
+            candidate = os.path.normpath(os.path.join(STATIC_DIR, full_path))
+            # 防路径穿越：必须落在 STATIC_DIR 之内且为真实文件
+            if candidate.startswith(STATIC_DIR + os.sep) and os.path.isfile(candidate):
+                return FileResponse(candidate)
+        return FileResponse(SPA_INDEX)
 
 
 # ---------------------------------------------------------------------------

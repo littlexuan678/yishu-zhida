@@ -304,6 +304,35 @@ docker compose up -d
 # 后端 API      → http://127.0.0.1:8000/docs
 ```
 
+### 4.5 一体化单容器部署（云平台 / 在线演示）
+
+仓库根目录的 `Dockerfile` 为**单容器一体化镜像**：前端构建产物由 FastAPI 直接托管
+（`STATIC_DIR` 模式），内置内存知识图谱，**无需 Neo4j / GPU / API Key** 即可运行完整演示：
+
+```bash
+docker build -t zhiyu-all-in-one:1.0.0 .
+docker run -p 7860:7860 zhiyu-all-in-one:1.0.0
+# 打开 http://127.0.0.1:7860/  （界面 + API 同域）
+```
+
+### 4.6 部署到 Hugging Face Spaces（免费在线演示）
+
+项目已适配 [Hugging Face Spaces](https://huggingface.co/spaces)（Docker SDK，免费 CPU）：
+
+```bash
+pip install huggingface_hub
+# 1. 创建 write 角色的 Access Token：https://huggingface.co/settings/tokens
+# 2. 设置环境变量后一键部署：
+#    Windows PowerShell:  $env:HF_TOKEN="hf_xxx"
+#    Linux/macOS:         export HF_TOKEN=hf_xxx
+python tools/deploy_hf_space.py            # 默认空间名 yishu-zhida，可 --name 自定义
+```
+
+上传完成后 HF 自动构建镜像（首次约 5–15 分钟），演示地址：
+`https://<你的用户名>-yishu-zhida.hf.space`
+
+> 脚本不会改动本地 git 仓库；重复执行即增量更新部署。
+
 ---
 
 ## 五、Neo4j 初始化方式
